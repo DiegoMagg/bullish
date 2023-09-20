@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import "/macros/forms.html" as f %}
+{% import "/macros/elements.html" as e %}
+
+{% block head %}
+<title>Bullish - Registration</title>
+{% endblock %}
+{% block body %}
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img class="mx-auto h-10 w-auto" src="" alt="Bullish">
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Join Bullish</h2>
+  </div>
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form class="space-y-6" method="POST">
+      {{ csrf_input }}
+      {% for field in form %}
+        {{f.input(field)}}
+      {% endfor %}
+      <div>
+        {{e.button_primary('submit', 'Sign in')}}
+      </div>
+    </form>
+    <p class="mt-10 text-center text-sm text-gray-500">
+      Back to
+      <a href="/accounts/login" class="font-semibold leading-6 text-gray-900 hover:text-gray-700">Login</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

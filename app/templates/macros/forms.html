@@ -1,0 +1,32 @@
+{% macro input(field) -%}
+  <div>
+    <label for="{{field.auto_id}}" class="block text-sm font-medium leading-6 text-gray-900">{{field.label}}</label>
+    <div class="mt-2">
+      <input
+        id="{{field.auto_id}}"
+        type="{{field.widget_type}}"
+        name="{{field.html_name}}"
+        value="{{field.data or ''}}"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder=""
+      >
+    </div>
+    <p class="absolute text-red-500 text-xs">{{field.errors.as_text()}}</p>
+  </div>
+{%- endmacro %}
+
+
+{% macro customize_fields(form) -%}
+  {% for field in form %}
+    <div>
+      <label
+          for="{{ field.auto_id }}"
+          class="block text-sm font-medium leading-6 text-gray-900">
+          {{ field.label }}
+      </label>
+      <div class="mt-2">
+        {{ field }}
+      </div>
+    </div>
+  {% endfor %}
+{%- endmacro %}

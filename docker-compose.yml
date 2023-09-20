@@ -56,7 +56,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - bullish_pg_data:/var/lib/postgresql/data/
+      - pg_data:/var/lib/postgresql/data/
     restart: on-failure
 
   rabbitmq:
@@ -67,10 +67,10 @@ services:
       - 5672:5672
       - 15672:15672
     volumes:
-      - bullish_rmq_data:/var/lib/rabbitmq/mnesia/
+      - rmq_data:/var/lib/rabbitmq/mnesia/
     restart: on-failure
 
 volumes:
-  bullish_pg_data:
+  pg_data:
 
-  bullish_rmq_data:
+  rmq_data:
