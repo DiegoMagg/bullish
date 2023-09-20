@@ -1,4 +1,4 @@
-from os import path, environ
+from os import environ, path
 
 from bullish.default_settings import *
 
@@ -30,3 +30,14 @@ CELERY_QUEUE = environ.get('CELERY_QUEUE', 'bullish')
 INSTALLED_APPS += [
     'django_celery_beat',
 ]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': environ.get('POSTGRES_DB', 'postgres'),
+        'USER': environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': environ.get('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': environ.get('POSTGRES_HOST', 'localhost'),
+        'POST': 5432,
+    },
+}
