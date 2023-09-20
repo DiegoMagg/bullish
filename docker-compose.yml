@@ -1,0 +1,76 @@
+version: "3.8"
+
+x-environ: &environ
+  environment:
+    - POSTGRES_DB=postgres
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_HOST=postgres
+    - RABBITMQ_DEFAULT_USER=admin
+    - RABBITMQ_DEFAULT_PASS=admin
+
+x-base: &base
+  <<: *environ
+  build:
+    context: .
+    dockerfile: ./deploy/images/Dockerfile
+  restart: on-failure
+  image: bullish
+  volumes:
+    - ./app:/app
+
+services:
+  bullish-web:
+    <<: *base
+    container_name: bullish-web
+    command: pipenv run gunicorn bullish.wsgi --bind 0:9010 --timeout 120 --log-level debug
+    depends_on:
+      - migrations
+    ports:
+      - 9010:9010
+    restart: on-failure
+
+  migrations:
+    <<: *base
+    container_name: bullish-migrations
+    command: pipenv run python manage.py migrate
+
+  celery-worker:
+    <<: *base
+    container_name: bullish-celery-worker
+    command: pipenv run celery -A bullish worker -l info
+    restart: on-failure
+
+  celery-beat:
+    <<: *base
+    container_name: bullish-celery-beat
+    command: pipenv run celery -A bullish beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    depends_on:
+      - migrations
+    restart: on-failure
+
+  postgres:
+    <<: *environ
+    container_name: postgres
+    image: postgres:15.2-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - bullish_pg_data:/var/lib/postgresql/data/
+    restart: on-failure
+
+  rabbitmq:
+    <<: *environ
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - bullish_rmq_data:/var/lib/rabbitmq/mnesia/
+    restart: on-failure
+
+volumes:
+  bullish_pg_data:
+
+  bullish_rmq_data:

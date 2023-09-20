@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+bcrypt = "*"
+requests = "*"
+celery = "*"
+django-celery-beat = "*"
+sentry-sdk = {extras = ["django"], version = "*"}
+whitenoise = "*"
+django-filter = "*"
+drf-spectacular = "*"
+
+[dev-packages]
+pytest-django = "*"
+pytest-mock = "*"
+pytest = "*"
+pre-commit = "*"
+coverage = "*"
+yapf = "*"
+ipython = "*"
+flake8 = "*"
+model-bakery = "*"
+
+[requires]
+python_version = "3.11"
