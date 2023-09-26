@@ -1,8 +1,9 @@
 repos:
-- repo: https://github.com/pre-commit/mirrors-yapf.git
-  rev: v0.32.0
+- repo: https://github.com/google/yapf
+  rev: v0.40.2
   hooks:
     - id: yapf
+      name: "yapf"
       args: ['--style=.style.yapf', '--parallel', '--in-place']
 - repo: https://github.com/PyCQA/flake8.git
   rev: 6.1.0

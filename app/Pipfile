@@ -13,8 +13,7 @@ celery = "*"
 django-celery-beat = "*"
 sentry-sdk = {extras = ["django"], version = "*"}
 whitenoise = "*"
-django-filter = "*"
-drf-spectacular = "*"
+jinja2 = "*"
 
 [dev-packages]
 pytest-django = "*"

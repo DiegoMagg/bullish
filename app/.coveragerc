@@ -1,11 +1,11 @@
 [run]
-
 omit =
     *__init__.py,
     env/*,
     venv/*,
-    beatant/celery.py,
+    bullish/celery.py,
     *admin.py
 
 [report]
 show_missing = true
+fail_under = 90

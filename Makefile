@@ -33,7 +33,7 @@ celery-purge:
 shell:
 	cd app && pipenv run python manage.py shell
 
-dev-server-up:
+dev-server-up: postgres-up migrate
 	cd app && pipenv run python manage.py runserver 0:8000
 
 migrations:
@@ -59,3 +59,6 @@ test-coverage:
 	rm -rf app/htmlcov
 	cd app && pipenv run coverage run -m pytest
 	cd app && pipenv run coverage html
+
+postgres-up:
+	docker compose up postgres -d
