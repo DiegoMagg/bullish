@@ -29,6 +29,7 @@ CELERY_QUEUE = environ.get('CELERY_QUEUE', 'bullish')
 
 INSTALLED_APPS += [
     'accounts',
+    'shares',
     'django_celery_beat',
 ]
 

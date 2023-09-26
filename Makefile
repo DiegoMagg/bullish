@@ -48,13 +48,13 @@ superuser:
 up-build:
 	docker compose -f docker-compose.yml up -d --build
 
-test:
+test: postgres-up
 	cd app && pipenv run pytest
 
-run-single-test:
+run-single-test: postgres-up
 	cd app && pipenv run pytest -k $(test)
 
-test-coverage:
+test-coverage: postgres-up
 	cd app && pipenv run coverage erase
 	rm -rf app/htmlcov
 	cd app && pipenv run coverage run -m pytest

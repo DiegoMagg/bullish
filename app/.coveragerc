@@ -4,7 +4,8 @@ omit =
     env/*,
     venv/*,
     bullish/celery.py,
-    *admin.py
+    *admin.py,
+    */migrations/*,
 
 [report]
 show_missing = true
